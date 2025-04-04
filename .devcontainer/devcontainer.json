@@ -1,0 +1,17 @@
+{
+    "name": "Wide Volume Slider for YouTube",
+    "image": "mcr.microsoft.com/devcontainers/typescript-node:20-bullseye",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "esbenp.prettier-vscode",
+                "dbaeumer.vscode-eslint"
+            ]
+        }
+    },
+    "postCreateCommand": "npm install",
+    "runArgs": [
+        "--userns=keep-id"
+    ],
+    "updateRemoteUserUID": true
+}

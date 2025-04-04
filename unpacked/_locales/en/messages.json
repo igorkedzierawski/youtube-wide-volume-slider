@@ -1,0 +1,10 @@
+{
+    "extensionName": {
+        "message": "Wide Volume Slider for Youtube",
+        "description": "Extension's name."
+    },
+    "extensionDescription": {
+        "message": "Replaces YouTube's default volume slider with a wider one for easier volume control.",
+        "description": "Extension's description."
+    }
+}

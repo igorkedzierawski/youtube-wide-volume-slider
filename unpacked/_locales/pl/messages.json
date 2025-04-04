@@ -1,0 +1,10 @@
+{
+    "extensionName": {
+        "message": "Szeroki suwak głośności dla YouTube",
+        "description": "Nazwa rozszerzenia."
+    },
+    "extensionDescription": {
+        "message": "Zastępuje domyślny suwak głośności YouTube'a szerszym, ułatwiającym kontrolowanie głośności.",
+        "description": "Opis rozszerzenia."
+    }
+}
