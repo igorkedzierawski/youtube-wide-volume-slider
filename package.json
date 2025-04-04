@@ -1,0 +1,18 @@
+{
+  "name": "wide-volume-slider-for-youtube",
+  "author": "Igor Kędzierawski",
+  "license": "MIT",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "watch": "node scripts/build.js -- --watch",
+    "web-run:firefox": "cd unpacked && web-ext run --start-url 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'",
+    "web-run:chrome": "cd unpacked && web-ext run --start-url 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' -t chromium"
+  },
+  "devDependencies": {
+    "@types/webextension-polyfill": "^0.12.3",
+    "esbuild": "^0.25.2",
+    "typescript": "^5.8.2",
+    "web-ext": "^8.2.0",
+    "webextension-polyfill": "^0.12.0"
+  }
+}

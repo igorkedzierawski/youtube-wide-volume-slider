@@ -1,0 +1,41 @@
+{
+    "manifest_version": 3,
+    "name": "__MSG_extensionName__",
+    "description": "__MSG_extensionDescription__",
+    "version": "1.0.0",
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "widevolumesliderforyoutube@null"
+        }
+    },
+    "default_locale": "en",
+    "icons": {
+        "256": "images/icon_214px.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "*://*.youtube.com/*",
+                "*://*.youtu.be/*"
+            ],
+            "js": [
+                "dist/content.js"
+            ],
+            "run_at": "document_start"
+        }
+    ],
+    "content_security_policy": {
+        "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; img-src 'self'"
+    },
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "dist/inject.js"
+            ],
+            "matches": [
+                "*://*.youtube.com/*",
+                "*://*.youtu.be/*"
+            ]
+        }
+    ]
+}
