@@ -10,7 +10,7 @@
     },
     "default_locale": "en",
     "icons": {
-        "256": "images/icon_214px.png"
+        "256": "images/icon_256px.png"
     },
     "content_scripts": [
         {
