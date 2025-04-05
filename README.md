@@ -1,7 +1,7 @@
 # Building
 
 1. Unzip the source code or clone this repo:  
-   `git clone git@github.com:igorkedzierawski/wide-volume-slider-for-youtube.git`
+   `git clone git@github.com:igorkedzierawski/youtube-wide-volume-slider.git`
 2. *(Optional)* Open the project in a Dev Container (e.g., in VS Code with the Dev Containers extension)
 3. Install dependencies: `npm install` (This runs automatically in a Dev Container)
 4. Build the extension: `npm run build`

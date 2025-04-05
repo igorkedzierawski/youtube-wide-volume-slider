@@ -2,7 +2,7 @@ import type { VolumeSettings } from "./types";
 
 const createWideVolumeSliderElement = (): HTMLElement => {
     const container = document.createElement("div");
-    container.id = "wide-volume-slider-for-youtube-container";
+    container.id = "youtube-wide-volume-slider-container";
 
     const input = document.createElement("input");
     input.className = "custom-slider";
@@ -14,17 +14,17 @@ const createWideVolumeSliderElement = (): HTMLElement => {
 
     const style = document.createElement("style");
     style.textContent = `
-        #wide-volume-slider-for-youtube-container {
+        #youtube-wide-volume-slider-container {
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 8px;
         }
-        #wide-volume-slider-for-youtube-container input {
+        #youtube-wide-volume-slider-container input {
             width: 180px;
             margin-right: 4px;
         }
-        #wide-volume-slider-for-youtube-container button {
+        #youtube-wide-volume-slider-container button {
             color: white;
             background-color: #0000;
             font-weight: bold;

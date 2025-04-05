@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "browser_specific_settings": {
         "gecko": {
-            "id": "widevolumesliderforyoutube@null"
+            "id": "youtubewidevolumeslider@null"
         }
     },
     "default_locale": "en",
