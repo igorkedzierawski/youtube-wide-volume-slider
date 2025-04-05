@@ -1,5 +1,5 @@
 {
-    "name": "Wide Volume Slider for YouTube",
+    "name": "Youtube Wide Volume Slider",
     "image": "mcr.microsoft.com/devcontainers/typescript-node:20-bullseye",
     "customizations": {
         "vscode": {
