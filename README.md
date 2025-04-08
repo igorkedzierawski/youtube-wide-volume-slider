@@ -1,3 +1,15 @@
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/cafa60da-59c1-4635-a34b-5368e989349e" alt="extension-icon" width="196">
+</p>
+
+<h1 align="center">YouTube Wide Volume Slider</h1>
+
+YouTube Wide Volume Slider replaces YouTube's default volume slider with a wider one. Initially created for personal use, I decided to publish it. The new slider is ~3.75x wider than the original, which improves UX by making volume adjustments easier and more precise.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/3389646a-8f69-47b6-bfa8-7c78799b10b8" alt="comparison" width="256">
+</p>
+
 # Building
 
 1. Unzip the source code or clone this repo:  
