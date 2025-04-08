@@ -19,6 +19,8 @@ YouTube Wide Volume Slider replaces YouTube's default volume slider with a wider
 4. Build the extension: `npm run build`
 5. If successful, the `unpacked` directory will contain all files needed to load the extension.
 
+The build process was tested on Linux with npm 10.8.2 and Node.js v20.19.0, but it should work on any modern OS and recent Node.js versions.
+
 ## Running the built extension
 
 To test the extension, you can:
