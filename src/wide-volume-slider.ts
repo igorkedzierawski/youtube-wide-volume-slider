@@ -22,7 +22,7 @@ const createWideVolumeSliderElement = (): HTMLElement => {
             --track-width: 180px;
             --thumb-size: 16px;
             --track-thickness: 5px;
-            --hitbox-padding: 5px;
+            --hitbox-padding: 6px;
         }
 
         #youtube-wide-volume-slider-container input[type="range"] {
