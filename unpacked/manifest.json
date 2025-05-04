@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "YouTube Wide Volume Slider",
     "description": "__MSG_extensionDescription__",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "browser_specific_settings": {
         "gecko": {
             "id": "youtubewidevolumeslider@null"
@@ -16,8 +16,9 @@
         {
             "matches": [
                 "*://*.youtube.com/*",
-                "*://*.youtu.be/*"
+                "*://www.youtube-nocookie.com/*"
             ],
+            "all_frames": true,
             "js": [
                 "dist/content.js"
             ],
@@ -34,7 +35,7 @@
             ],
             "matches": [
                 "*://*.youtube.com/*",
-                "*://*.youtu.be/*"
+                "*://*.youtube-nocookie.com/*"
             ]
         }
     ]
