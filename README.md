@@ -11,6 +11,7 @@ YouTube Wide Volume Slider replaces YouTube's default volume slider with a wider
 </p>
 
   - [Download for Firefox](https://addons.mozilla.org/en-US/firefox/addon/youtube-wide-volume-slider/)
+  - [Download for Chrome](https://chromewebstore.google.com/detail/youtube-wide-volume-slide/bhfhbmnjfgbncfcahcinmnfokbjemkba/)
 
 # Building
 
