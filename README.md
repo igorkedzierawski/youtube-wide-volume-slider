@@ -4,14 +4,19 @@
 
 <h1 align="center">YouTube Wide Volume Slider</h1>
 
+<p align="center">
+  <img src="https://img.shields.io/amo/users/youtube-wide-volume-slider?label=Firefox%20Users" alt="firefox_users">
+  <img src="https://img.shields.io/chrome-web-store/users/bhfhbmnjfgbncfcahcinmnfokbjemkba?label=Chrome%20Users" alt="chrome_users">
+</p>
+
 YouTube Wide Volume Slider replaces YouTube's default volume slider with a wider one. Initially created for personal use, I decided to publish it. The new slider is ~3.75x wider than the original, which improves UX by making volume adjustments easier and more precise.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/3389646a-8f69-47b6-bfa8-7c78799b10b8" alt="comparison" width="256">
+  <img src="https://github.com/user-attachments/assets/bc3299ca-a02d-471b-852f-13823eef34dd" alt="extension_showcase" width="420">
 </p>
 
-  - [Download for Firefox](https://addons.mozilla.org/en-US/firefox/addon/youtube-wide-volume-slider/)
-  - [Download for Chrome](https://chromewebstore.google.com/detail/youtube-wide-volume-slide/bhfhbmnjfgbncfcahcinmnfokbjemkba/)
+  - [Download for Firefox](https://addons.mozilla.org/en-US/firefox/addon/youtube-wide-volume-slider/) 
+  - [Download for Chrome](https://chromewebstore.google.com/detail/youtube-wide-volume-slide/bhfhbmnjfgbncfcahcinmnfokbjemkba/) 
 
 # Building
 
