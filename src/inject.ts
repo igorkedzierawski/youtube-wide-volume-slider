@@ -42,7 +42,18 @@ const monitorInternalVolume = (
     });
 };
 
+const getMutedIconUrl = async () : Promise<string> => {
+    return await new Promise(resolve => {
+        document.addEventListener('YouTubeWideVolumeSliderMutedIconUrlPassEvent', (e: any) => {
+            resolve(e.detail);
+        }, {once: true});
+    })
+}
+
 (async () => {
+    // wait for muted icon's url
+    const mutedIconUrl = await getMutedIconUrl();
+
     // locate key elements within DOM
     const moviePlayerElement =
         (await locateMoviePlayerElement()) as MoviePlayer;
@@ -56,7 +67,7 @@ const monitorInternalVolume = (
     const volumeController: VolumeController = moviePlayerElement;
 
     // create volume slider component and a hook to youtube's localstorage
-    const wideVolumeSlider = createWideVolumeSliderComponent();
+    const wideVolumeSlider = createWideVolumeSliderComponent(mutedIconUrl);
 
     const ytLocalstorageUpdator = createYtLocalstorageUpdateScheduler();
 

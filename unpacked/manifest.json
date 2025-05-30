@@ -31,7 +31,8 @@
     "web_accessible_resources": [
         {
             "resources": [
-                "dist/inject.js"
+                "dist/inject.js",
+                "images/muted_icon.svg"
             ],
             "matches": [
                 "*://*.youtube.com/*",

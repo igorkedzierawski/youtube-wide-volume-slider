@@ -1,6 +1,6 @@
 import type { VolumeSettings } from "./types";
 
-const createWideVolumeSliderElement = (): HTMLElement => {
+const createWideVolumeSliderElement = (mutedIconUrl: string): HTMLElement => {
     const container = document.createElement("div");
     container.id = "youtube-wide-volume-slider-container";
 
@@ -10,7 +10,14 @@ const createWideVolumeSliderElement = (): HTMLElement => {
     input.min = "0";
     input.max = "100";
 
+    const buttonLabel = document.createElement("span");
+
+    const buttonMutedIcon = document.createElement("img");
+    buttonMutedIcon.setAttribute("src", mutedIconUrl)
+
     const button = document.createElement("button");
+    button.appendChild(buttonLabel);
+    button.appendChild(buttonMutedIcon);
 
     const style = document.createElement("style");
     style.textContent = `
@@ -23,6 +30,7 @@ const createWideVolumeSliderElement = (): HTMLElement => {
             --thumb-size: 16px;
             --track-thickness: 5px;
             --hitbox-padding: 6px;
+            --muted-icon-size: 20px;
         }
 
         #youtube-wide-volume-slider-container input[type="range"] {
@@ -76,6 +84,14 @@ const createWideVolumeSliderElement = (): HTMLElement => {
             font-weight: bold;
             border: none;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #youtube-wide-volume-slider-container img {
+            width: var(--muted-icon-size);
+            height: var(--muted-icon-size);
         }
     `;
 
@@ -92,8 +108,9 @@ export interface WideVolumeSliderComponent {
     getElement(): Element;
 }
 
-export const createWideVolumeSliderComponent =
-    (): WideVolumeSliderComponent => {
+export const createWideVolumeSliderComponent = (
+    mutedIconUrl: string
+): WideVolumeSliderComponent => {
         let settings: VolumeSettings = {
             volume: 0,
             muted: false,
@@ -102,21 +119,34 @@ export const createWideVolumeSliderComponent =
             | ((settings: VolumeSettings) => void)
             | undefined;
 
-        const container = createWideVolumeSliderElement();
+        const container = createWideVolumeSliderElement(mutedIconUrl);
         const button = container.querySelector("BUTTON")! as HTMLButtonElement;
         const slider = container.querySelector("INPUT")! as HTMLInputElement;
+        const buttonLabel = container.querySelector("SPAN")! as HTMLElement;
+        const buttonMutedIcon = container.querySelector("IMG")! as HTMLElement;
+
+        const updateButtonContent = (settings: VolumeSettings) => {
+            if(settings.muted) {
+                buttonLabel.style.display = "none";
+                buttonMutedIcon.style.display = "";
+            } else {
+                buttonMutedIcon.style.display = "none";
+                buttonLabel.style.display = "";
+                buttonLabel.innerText = `${settings.volume}%`;
+            }
+        }
 
         button.addEventListener("click", () => {
             settings.muted = !settings.muted;
             settingsChangeHandler && settingsChangeHandler({ ...settings });
-            button.innerText = settings.muted ? "Muted" : `${settings.volume}%`;
+            updateButtonContent(settings);
         });
 
         slider.addEventListener("input", () => {
             settings.muted = false;
             settings.volume = parseInt(slider.value);
             settingsChangeHandler && settingsChangeHandler({ ...settings });
-            button.innerText = settings.muted ? "Muted" : `${settings.volume}%`;
+            updateButtonContent(settings);
         });
 
         return {
@@ -128,9 +158,7 @@ export const createWideVolumeSliderComponent =
             setSettings: (newSettings: VolumeSettings) => {
                 settings = { ...newSettings };
                 slider.value = `${settings.volume}`;
-                button.innerText = settings.muted
-                    ? "Muted"
-                    : `${settings.volume}%`;
+                updateButtonContent(settings);
             },
             getElement: () => {
                 return container;
