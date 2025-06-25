@@ -12,3 +12,8 @@ export interface VolumeController {
 }
 
 export type MoviePlayer = VolumeController & Element;
+
+export interface InitialSettings {
+    mutedIconUrl: string;
+    initialWidthMultiple: number;
+}

@@ -1,4 +1,9 @@
-import { VolumeController, VolumeSettings, type MoviePlayer } from "./types";
+import {
+    InitialSettings,
+    VolumeController,
+    VolumeSettings,
+    type MoviePlayer,
+} from "./types";
 import {
     querySelectorLocateAndObserve,
     querySelectorLocateOnce,
@@ -8,6 +13,10 @@ import {
     CreateYtLocalstorageUpdateScheduler as createYtLocalstorageUpdateScheduler,
     readYtLocalstorage,
 } from "./yt-localstorage";
+import {
+    AVAILABLE_SLIDER_MULTIPLES,
+    YOUTUBE_DEFAULT_SLIDER_WIDTH_PX,
+} from "./constants";
 
 // Locate movie player element within DOM
 const locateMoviePlayerElement = async (): Promise<Element> => {
@@ -42,17 +51,25 @@ const monitorInternalVolume = (
     });
 };
 
-const getMutedIconUrl = async () : Promise<string> => {
+const getInitialSettings = async (): Promise<InitialSettings> => {
     return await new Promise(resolve => {
-        document.addEventListener('YouTubeWideVolumeSliderMutedIconUrlPassEvent', (e: any) => {
-            resolve(e.detail);
-        }, {once: true});
-    })
-}
+        document.addEventListener(
+            "YouTubeWideVolumeSliderInitialSettingsPassEvent",
+            (e: any) => {
+                console.log(e.detail);
+                resolve(JSON.parse(e.detail));
+            },
+            { once: true },
+        );
+    });
+};
+
+let prefferedMulIndex: number = 0;
+let currentMulIndex: number = -1;
 
 (async () => {
-    // wait for muted icon's url
-    const mutedIconUrl = await getMutedIconUrl();
+    // wait for muted icon's url and initial width multiple
+    const initialSettings = await getInitialSettings();
 
     // locate key elements within DOM
     const moviePlayerElement =
@@ -67,7 +84,9 @@ const getMutedIconUrl = async () : Promise<string> => {
     const volumeController: VolumeController = moviePlayerElement;
 
     // create volume slider component and a hook to youtube's localstorage
-    const wideVolumeSlider = createWideVolumeSliderComponent(mutedIconUrl);
+    const wideVolumeSlider = createWideVolumeSliderComponent(
+        initialSettings.mutedIconUrl,
+    );
 
     const ytLocalstorageUpdator = createYtLocalstorageUpdateScheduler();
 
@@ -86,7 +105,7 @@ const getMutedIconUrl = async () : Promise<string> => {
     wideVolumeSlider.setSettingsChangeHandler(volumeSettingsChangeHandler);
 
     // whenever movie player volume settings are externally updated, we
-    // also update the state of the volume slider created by this extension  
+    // also update the state of the volume slider created by this extension
     monitorInternalVolume(moviePlayerElement, () => {
         wideVolumeSlider.setSettings({
             volume: volumeController.getVolume(),
@@ -105,4 +124,116 @@ const getMutedIconUrl = async () : Promise<string> => {
     };
     wideVolumeSlider.setSettings(initialVolumeSettings);
     volumeSettingsChangeHandler(initialVolumeSettings);
+
+    // after everything is setup, set slider's width to the value from initial settings
+    const setWidthWithEverythingTakenCareOf = (preffIndex: number) => {
+        console.log(
+            `current: ${currentMulIndex}; preffered: ${prefferedMulIndex}; nextPreff: ${preffIndex}`,
+        );
+        prefferedMulIndex = preffIndex;
+        if (currentMulIndex === -1) {
+            currentMulIndex = preffIndex;
+            wideVolumeSlider.setWidth(
+                AVAILABLE_SLIDER_MULTIPLES[currentMulIndex] *
+                    YOUTUBE_DEFAULT_SLIDER_WIDTH_PX,
+            );
+            setTimeout(() => {
+                setWidthWithEverythingTakenCareOf(prefferedMulIndex);
+            }, 3000);
+            return;
+        }
+        const volumeAreaParentWidth =
+            volumeAreaParent.getBoundingClientRect().width;
+        const computedContentWidth = [...volumeAreaParent.children]
+            .map(el => el.scrollWidth)
+            .reduce((a, b) => a + b);
+        const currentSliderWidth =
+            AVAILABLE_SLIDER_MULTIPLES[currentMulIndex] *
+            YOUTUBE_DEFAULT_SLIDER_WIDTH_PX;
+        console.log(
+            `vaParentW: ${volumeAreaParentWidth}; compCW: ${computedContentWidth}; currSliderW: ${currentSliderWidth}`,
+        );
+        let finalWidthIndx = prefferedMulIndex;
+        do {
+            console.log(
+                `testing ${finalWidthIndx}===${AVAILABLE_SLIDER_MULTIPLES[finalWidthIndx]}`,
+            );
+            let prefferedSliderWidth =
+                AVAILABLE_SLIDER_MULTIPLES[finalWidthIndx] *
+                YOUTUBE_DEFAULT_SLIDER_WIDTH_PX;
+            let computedPrefferedContentWidth =
+                computedContentWidth -
+                currentSliderWidth +
+                prefferedSliderWidth;
+            console.log(
+                `prefferedSliderWidth: ${prefferedSliderWidth}; computedPrefferedContentWidth: ${computedPrefferedContentWidth}`,
+            );
+            if (computedPrefferedContentWidth < volumeAreaParentWidth) {
+                console.log("Path1")
+                currentMulIndex = finalWidthIndx;
+                wideVolumeSlider.setWidth(
+                    AVAILABLE_SLIDER_MULTIPLES[currentMulIndex] *
+                        YOUTUBE_DEFAULT_SLIDER_WIDTH_PX,
+                );
+                return;
+            } else {
+                console.log("Path2")
+                finalWidthIndx--;
+            }
+            if (finalWidthIndx < 0) {
+                console.log("Path3")
+                currentMulIndex = finalWidthIndx;
+                wideVolumeSlider.setWidth(
+                    AVAILABLE_SLIDER_MULTIPLES[finalWidthIndx] *
+                        YOUTUBE_DEFAULT_SLIDER_WIDTH_PX,
+                );
+                return;
+            }
+        } while (1);
+    };
+    setWidthWithEverythingTakenCareOf(initialSettings.initialWidthMultiple);
+    // prefferedMulIndex = initialSettings.initialWidthMultiple;
+    // currentMulIndex = prefferedMulIndex;
+    // wideVolumeSlider.setWidth(
+    //     AVAILABLE_SLIDER_MULTIPLES[currentMulIndex] * YOUTUBE_DEFAULT_SLIDER_WIDTH_PX,
+    // );
+    // and listen for changes of those settings
+    document.addEventListener(
+        "YouTubeWideVolumeSliderWidthMultipleChangedEvent",
+        (e: any) => {
+            setWidthWithEverythingTakenCareOf(e.detail);
+        },
+    );
+
+    new ResizeObserver(_ => {
+        setWidthWithEverythingTakenCareOf(prefferedMulIndex);
+        return;
+        // const volumeAreaParentWidth =
+        //     volumeAreaParent.getBoundingClientRect().width;
+        // const computedContentWidth = [...volumeAreaParent.children]
+        //     .map(el => el.scrollWidth)
+        //     .reduce((a, b) => a + b);
+        // [...volumeAreaParent.children].forEach(x => {
+        //     console.log(JSON.stringify(x.getBoundingClientRect()));
+        // });
+        // const sliderBoxWidth = wideVolumeSlider
+        //     .getElement()
+        //     .getBoundingClientRect().width;
+        // console.log(
+        //     `Resized ${
+        //         volumeAreaParent.getBoundingClientRect().width
+        //     } ${computedContentWidth} ${sliderBoxWidth}`,
+        // );
+        // if (computedContentWidth > volumeAreaParentWidth) {
+        //     const baseWidth = AVAILABLE_SLIDER_MULTIPLES[currentMulIndex] * YOUTUBE_DEFAULT_SLIDER_WIDTH_PX;
+        //     for(let currentIndex = currentMulIndex; currentIndex >= 0; currentIndex--) {
+        //         const widthForThatIndex = AVAILABLE_SLIDER_MULTIPLES[currentIndex] * YOUTUBE_DEFAULT_SLIDER_WIDTH_PX;
+        //         if(computedContentWidth)
+        //     }
+        //     while(true) {
+
+        //     }
+        //     console.log("Zjadź lepszy size");
+        // }
+    }).observe(volumeAreaParent);
 })();
