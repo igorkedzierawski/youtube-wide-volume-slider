@@ -19,13 +19,21 @@ const createWideVolumeSliderElement = (mutedIconUrl: string): HTMLElement => {
     button.appendChild(buttonLabel);
     button.appendChild(buttonMutedIcon);
 
+    document.addEventListener('LMFAOEVENT', (e: any) => {
+        console.log(e.detail);
+        console.log(e.detail);
+        console.log(e.detail);
+        console.log(e.detail);
+    }, {once: true});
+
     const style = document.createElement("style");
     style.textContent = `
         #youtube-wide-volume-slider-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 8px;
+            margin: 8px 0 8px 0;
+            padding: 0 8px 0 8px;
             --track-width: 180px;
             --thumb-size: 16px;
             --track-thickness: 5px;
@@ -97,7 +105,7 @@ const createWideVolumeSliderElement = (mutedIconUrl: string): HTMLElement => {
 
     container.appendChild(input);
     container.appendChild(button);
-    document.head.appendChild(style);
+    container.appendChild(style);
 
     return container;
 };
@@ -105,11 +113,12 @@ const createWideVolumeSliderElement = (mutedIconUrl: string): HTMLElement => {
 export interface WideVolumeSliderComponent {
     setSettingsChangeHandler(handler: (settings: VolumeSettings) => void): void;
     setSettings(newSettings: VolumeSettings): void;
+    setWidth(widthPx: number): void;
     getElement(): Element;
 }
 
 export const createWideVolumeSliderComponent = (
-    mutedIconUrl: string
+    mutedIconUrl: string,
 ): WideVolumeSliderComponent => {
         let settings: VolumeSettings = {
             volume: 0,
@@ -124,6 +133,7 @@ export const createWideVolumeSliderComponent = (
         const slider = container.querySelector("INPUT")! as HTMLInputElement;
         const buttonLabel = container.querySelector("SPAN")! as HTMLElement;
         const buttonMutedIcon = container.querySelector("IMG")! as HTMLElement;
+        const style = container.querySelector("STYLE")! as HTMLElement;
 
         const updateButtonContent = (settings: VolumeSettings) => {
             if(settings.muted) {
@@ -159,6 +169,9 @@ export const createWideVolumeSliderComponent = (
                 settings = { ...newSettings };
                 slider.value = `${settings.volume}`;
                 updateButtonContent(settings);
+            },
+            setWidth: (widthPx: number) => {
+                style.innerHTML = style.innerHTML.replace(/--track-width:\s*[^px]*px/, `--track-width: ${widthPx}px`);
             },
             getElement: () => {
                 return container;
