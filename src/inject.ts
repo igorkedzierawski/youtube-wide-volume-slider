@@ -1,13 +1,14 @@
 import {
+    INIT_PARAMS_PASSED_EVENT,
+    InitParamsPassedEvent,
+    SETTINGS_CHANGED_EVENT,
+    SettingsChangedEvent,
+} from "./common/communication";
+import {
     AVAILABLE_WIDTH_MULTIPLIERS,
     YT_DEFAULT_SLIDER_WIDTH_PX,
 } from "./common/slider-width";
-import {
-    InitialSettings,
-    VolumeController,
-    VolumeSettings,
-    type MoviePlayer,
-} from "./types";
+import { VolumeController, VolumeSettings, type MoviePlayer } from "./types";
 import {
     querySelectorLocateAndObserve,
     querySelectorLocateOnce,
@@ -51,14 +52,11 @@ const monitorInternalVolume = (
     });
 };
 
-const getInitialSettings = async (): Promise<InitialSettings> => {
+const getInitParams = async (): Promise<InitParamsPassedEvent> => {
     return await new Promise(resolve => {
         document.addEventListener(
-            "YouTubeWideVolumeSliderInitialSettingsPassEvent",
-            (e: any) => {
-                console.log(e.detail);
-                resolve(JSON.parse(e.detail));
-            },
+            INIT_PARAMS_PASSED_EVENT,
+            (e: any) => resolve(JSON.parse(e.detail)),
             { once: true },
         );
     });
@@ -69,7 +67,7 @@ let currentMulIndex: number = -1;
 
 (async () => {
     // wait for muted icon's url and initial width multiple
-    const initialSettings = await getInitialSettings();
+    const initialSettings = await getInitParams();
 
     // locate key elements within DOM
     const moviePlayerElement =
@@ -195,19 +193,17 @@ let currentMulIndex: number = -1;
             }
         } while (1);
     };
-    setWidthWithEverythingTakenCareOf(initialSettings.initialWidthMultiple);
+    setWidthWithEverythingTakenCareOf(initialSettings.widthMultipleIndex);
     // prefferedMulIndex = initialSettings.initialWidthMultiple;
     // currentMulIndex = prefferedMulIndex;
     // wideVolumeSlider.setWidth(
     //     AVAILABLE_SLIDER_MULTIPLES[currentMulIndex] * YOUTUBE_DEFAULT_SLIDER_WIDTH_PX,
     // );
     // and listen for changes of those settings
-    document.addEventListener(
-        "YouTubeWideVolumeSliderWidthMultipleChangedEvent",
-        (e: any) => {
-            setWidthWithEverythingTakenCareOf(e.detail);
-        },
-    );
+    document.addEventListener(SETTINGS_CHANGED_EVENT, (e: any) => {
+        const settings: SettingsChangedEvent = JSON.parse(e.detail)
+        setWidthWithEverythingTakenCareOf(settings.widthMultipleIndex);
+    });
 
     new ResizeObserver(_ => {
         setWidthWithEverythingTakenCareOf(prefferedMulIndex);
