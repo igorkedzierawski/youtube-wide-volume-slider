@@ -2,5 +2,13 @@
     "extensionDescription": {
         "message": "Replaces YouTube's default volume slider with a wider one for easier volume control.",
         "description": "Extension's description."
+    },
+    "sliderWidthLabel": {
+        "message": "Slider width:",
+        "description": "Label used in the popup to adjust the width of the slider."
+    },
+    "responsiveWidthLabel": {
+        "message": "Automatic slider width adjustment:",
+        "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
     }
 }
