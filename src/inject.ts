@@ -7,7 +7,7 @@ import {
 import {
     querySelectorLocateAndObserve,
     querySelectorLocateOnce,
-} from "./query-selector-locate";
+} from "./utils/query-selector-locate";
 import {
     CreateYtLocalstorageUpdateScheduler as createYtLocalstorageUpdateScheduler,
     readYtLocalstorage,
