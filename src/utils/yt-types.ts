@@ -1,9 +1,9 @@
-export interface VolumeSettings {
+export interface YtVolumeSettings {
     volume: number;
     muted: boolean;
 }
 
-export interface VolumeController {
+export interface YtVolumeController {
     getVolume(): number;
     setVolume(volume: number): void;
     isMuted(): boolean;
@@ -11,4 +11,4 @@ export interface VolumeController {
     unMute(): void;
 }
 
-export type MoviePlayer = VolumeController & Element;
+export type YtMoviePlayer = YtVolumeController & Element;

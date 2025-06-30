@@ -1,9 +1,9 @@
-import { VolumeSettings } from "../types";
+import { YtVolumeSettings } from "../utils/yt-types";
 import { createVolumeSliderElements } from "./volume-slider-elements";
 
 export interface VolumeSliderComponent {
-    onSettingsChange(handler: (settings: VolumeSettings) => void): void;
-    updateSettings(newSettings: VolumeSettings): void;
+    onSettingsChange(handler: (settings: YtVolumeSettings) => void): void;
+    updateSettings(newSettings: YtVolumeSettings): void;
     setSliderWidth(widthPx: number): void;
     getRootElement(): HTMLElement;
 }
@@ -11,17 +11,17 @@ export interface VolumeSliderComponent {
 export const createVolumeSliderComponent = (
     mutedIconUrl: string,
 ): VolumeSliderComponent => {
-    let settings: VolumeSettings = {
+    let settings: YtVolumeSettings = {
         volume: 0,
         muted: false,
     };
-    let settingsChangeHandler: ((settings: VolumeSettings) => void) | undefined;
+    let settingsChangeHandler: ((settings: YtVolumeSettings) => void) | undefined;
 
     const elements = createVolumeSliderElements();
 
     elements.muteToggle.icon.src = mutedIconUrl;
 
-    const updateButtonContent = (settings: VolumeSettings) => {
+    const updateButtonContent = (settings: YtVolumeSettings) => {
         if (settings.muted) {
             elements.muteToggle.label.style.display = "none";
             elements.muteToggle.icon.style.display = "";
@@ -46,10 +46,10 @@ export const createVolumeSliderComponent = (
     });
 
     return {
-        onSettingsChange: (handler: (settings: VolumeSettings) => void) => {
+        onSettingsChange: (handler: (settings: YtVolumeSettings) => void) => {
             settingsChangeHandler = handler;
         },
-        updateSettings: (newSettings: VolumeSettings) => {
+        updateSettings: (newSettings: YtVolumeSettings) => {
             settings = { ...newSettings };
             elements.slider.value = `${settings.volume}`;
             updateButtonContent(settings);
