@@ -62,12 +62,9 @@ const getInitParams = async (): Promise<InitParamsPassedEvent> => {
     });
 };
 
-let prefferedMulIndex: number = 0;
-let currentMulIndex: number = -1;
-
 (async () => {
     // wait for muted icon's url and initial width multiple
-    const initialSettings = await getInitParams();
+    const initParams = await getInitParams();
 
     // locate key elements within DOM
     const moviePlayerElement =
@@ -83,7 +80,7 @@ let currentMulIndex: number = -1;
 
     // create volume slider component and a hook to youtube's localstorage
     const wideVolumeSlider = createVolumeSliderComponent(
-        initialSettings.mutedIconUrl,
+        initParams.mutedIconUrl,
     );
 
     const ytLocalstorageUpdator = new YtLocalStorageUpdateScheduler();
@@ -128,112 +125,72 @@ let currentMulIndex: number = -1;
     volumeSettingsChangeHandler(initialVolumeSettings);
 
     // after everything is setup, set slider's width to the value from initial settings
-    const setWidthWithEverythingTakenCareOf = (preffIndex: number) => {
-        console.log(
-            `current: ${currentMulIndex}; preffered: ${prefferedMulIndex}; nextPreff: ${preffIndex}`,
+    let prefferedMultiplier =
+        AVAILABLE_WIDTH_MULTIPLIERS[initParams.widthMultipleIndex];
+    let currentMultiplier = -1;
+    let responsiveWidth = initParams.responsiveWidth;
+
+    const setCurrentMultiplier = (multiplier: number) => {
+        currentMultiplier = multiplier;
+        wideVolumeSlider.setSliderWidth(
+            multiplier * YT_DEFAULT_SLIDER_WIDTH_PX,
         );
-        prefferedMulIndex = preffIndex;
-        if (currentMulIndex === -1) {
-            currentMulIndex = preffIndex;
-            wideVolumeSlider.setSliderWidth(
-                AVAILABLE_WIDTH_MULTIPLIERS[currentMulIndex] *
-                    YT_DEFAULT_SLIDER_WIDTH_PX,
-            );
-            setTimeout(() => {
-                setWidthWithEverythingTakenCareOf(prefferedMulIndex);
-            }, 3000);
+    };
+
+    const recalculateSliderWidth = () => {
+        if (currentMultiplier === -1) {
+            setCurrentMultiplier(prefferedMultiplier);
+            setTimeout(() => recalculateSliderWidth(), 1000);
             return;
         }
+
+        if (!responsiveWidth) {
+            setCurrentMultiplier(prefferedMultiplier);
+            return;
+        }
+
         const volumeAreaParentWidth =
             volumeAreaParent.getBoundingClientRect().width;
         const computedContentWidth = [...volumeAreaParent.children]
             .map(el => el.scrollWidth)
             .reduce((a, b) => a + b);
         const currentSliderWidth =
-            AVAILABLE_WIDTH_MULTIPLIERS[currentMulIndex] *
-            YT_DEFAULT_SLIDER_WIDTH_PX;
-        console.log(
-            `vaParentW: ${volumeAreaParentWidth}; compCW: ${computedContentWidth}; currSliderW: ${currentSliderWidth}`,
+            currentMultiplier * YT_DEFAULT_SLIDER_WIDTH_PX;
+        const nonSliderOccupiedWidth =
+            computedContentWidth - currentSliderWidth;
+        const remainingForSliderWidth =
+            volumeAreaParentWidth - nonSliderOccupiedWidth;
+        const maximumAllowedMultiplier =
+            remainingForSliderWidth / YT_DEFAULT_SLIDER_WIDTH_PX;
+        const maximumAllowedOrPrefferedMultiplier = Math.min(
+            maximumAllowedMultiplier,
+            prefferedMultiplier,
         );
-        let finalWidthIndx = prefferedMulIndex;
-        do {
-            console.log(
-                `testing ${finalWidthIndx}===${AVAILABLE_WIDTH_MULTIPLIERS[finalWidthIndx]}`,
-            );
-            let prefferedSliderWidth =
-                AVAILABLE_WIDTH_MULTIPLIERS[finalWidthIndx] *
-                YT_DEFAULT_SLIDER_WIDTH_PX;
-            let computedPrefferedContentWidth =
-                computedContentWidth -
-                currentSliderWidth +
-                prefferedSliderWidth;
-            console.log(
-                `prefferedSliderWidth: ${prefferedSliderWidth}; computedPrefferedContentWidth: ${computedPrefferedContentWidth}`,
-            );
-            if (computedPrefferedContentWidth < volumeAreaParentWidth) {
-                console.log("Path1");
-                currentMulIndex = finalWidthIndx;
-                wideVolumeSlider.setSliderWidth(
-                    AVAILABLE_WIDTH_MULTIPLIERS[currentMulIndex] *
-                        YT_DEFAULT_SLIDER_WIDTH_PX,
-                );
-                return;
-            } else {
-                console.log("Path2");
-                finalWidthIndx--;
-            }
-            if (finalWidthIndx < 0) {
-                console.log("Path3");
-                currentMulIndex = finalWidthIndx;
-                wideVolumeSlider.setSliderWidth(
-                    AVAILABLE_WIDTH_MULTIPLIERS[finalWidthIndx] *
-                        YT_DEFAULT_SLIDER_WIDTH_PX,
-                );
-                return;
-            }
-        } while (1);
+        const bestAvailableMultiplier = AVAILABLE_WIDTH_MULTIPLIERS.reduce(
+            (lastBestFit, biggerMultiplier) => {
+                return biggerMultiplier <= maximumAllowedOrPrefferedMultiplier
+                    ? biggerMultiplier
+                    : lastBestFit;
+            },
+            AVAILABLE_WIDTH_MULTIPLIERS[0],
+        );
+
+        setCurrentMultiplier(bestAvailableMultiplier);
     };
-    setWidthWithEverythingTakenCareOf(initialSettings.widthMultipleIndex);
-    // prefferedMulIndex = initialSettings.initialWidthMultiple;
-    // currentMulIndex = prefferedMulIndex;
-    // wideVolumeSlider.setWidth(
-    //     AVAILABLE_SLIDER_MULTIPLES[currentMulIndex] * YOUTUBE_DEFAULT_SLIDER_WIDTH_PX,
-    // );
-    // and listen for changes of those settings
+
+    recalculateSliderWidth();
+
     document.addEventListener(SETTINGS_CHANGED_EVENT, (e: any) => {
-        const settings: SettingsChangedEvent = JSON.parse(e.detail)
-        setWidthWithEverythingTakenCareOf(settings.widthMultipleIndex);
+        const settings: SettingsChangedEvent = JSON.parse(e.detail);
+        prefferedMultiplier =
+            AVAILABLE_WIDTH_MULTIPLIERS[settings.widthMultipleIndex];
+        responsiveWidth = settings.responsiveWidth;
+        recalculateSliderWidth();
     });
 
     new ResizeObserver(_ => {
-        setWidthWithEverythingTakenCareOf(prefferedMulIndex);
-        return;
-        // const volumeAreaParentWidth =
-        //     volumeAreaParent.getBoundingClientRect().width;
-        // const computedContentWidth = [...volumeAreaParent.children]
-        //     .map(el => el.scrollWidth)
-        //     .reduce((a, b) => a + b);
-        // [...volumeAreaParent.children].forEach(x => {
-        //     console.log(JSON.stringify(x.getBoundingClientRect()));
-        // });
-        // const sliderBoxWidth = wideVolumeSlider
-        //     .getElement()
-        //     .getBoundingClientRect().width;
-        // console.log(
-        //     `Resized ${
-        //         volumeAreaParent.getBoundingClientRect().width
-        //     } ${computedContentWidth} ${sliderBoxWidth}`,
-        // );
-        // if (computedContentWidth > volumeAreaParentWidth) {
-        //     const baseWidth = AVAILABLE_SLIDER_MULTIPLES[currentMulIndex] * YOUTUBE_DEFAULT_SLIDER_WIDTH_PX;
-        //     for(let currentIndex = currentMulIndex; currentIndex >= 0; currentIndex--) {
-        //         const widthForThatIndex = AVAILABLE_SLIDER_MULTIPLES[currentIndex] * YOUTUBE_DEFAULT_SLIDER_WIDTH_PX;
-        //         if(computedContentWidth)
-        //     }
-        //     while(true) {
-
-        //     }
-        //     console.log("Zjadź lepszy size");
-        // }
+        if(responsiveWidth) {
+            recalculateSliderWidth();
+        }
     }).observe(volumeAreaParent);
 })();
