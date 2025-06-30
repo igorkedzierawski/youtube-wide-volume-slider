@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Zëvendëson sliderin e volumit të YouTube me një më të gjerë për kontroll më të lehtë të volumit.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Gjerësia e sliderit:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Rregullimi automatik i gjerësisë së sliderit:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

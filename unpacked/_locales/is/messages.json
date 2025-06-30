@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Skipti um sjálfgefinn hljóðstýringarstiku YouTube fyrir breiðari til að auðvelda hljóðstýringar.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Breidd stýris:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Sjálfvirk aðlögun á breidd stýris:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}
