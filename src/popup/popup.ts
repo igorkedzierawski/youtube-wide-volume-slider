@@ -55,7 +55,7 @@ const init = async (elements: PopupElements) => {
     elements.widthMultiplier.input.max = `${
         AVAILABLE_WIDTH_MULTIPLIERS.length - 1
     }`;
-    elements.widthMultiplier.input.value = `${responsiveWidth}`;
+    elements.widthMultiplier.input.value = `${widthMultiplierIndex}`;
 
     elements.widthMultiplier.display.innerText =
         "x" + AVAILABLE_WIDTH_MULTIPLIERS[widthMultiplierIndex];
