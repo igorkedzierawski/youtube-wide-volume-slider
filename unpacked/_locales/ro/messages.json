@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Înlocuiește glisorul implicit de volum YouTube cu unul mai lat pentru un control mai ușor al volumului.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Lățimea glisorului:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Ajustarea automată a lățimii glisorului:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

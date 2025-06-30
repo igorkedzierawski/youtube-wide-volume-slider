@@ -2,5 +2,13 @@
     "extensionDescription": {
         "message": "YouTubeのデフォルトの音量スライダーを、音量調整がしやすい幅広のものに置き換えます。",
         "description": "拡張機能の説明。"
+    },
+    "sliderWidthLabel": {
+        "message": "スライダーの幅:",
+        "description": "ポップアップでスライダーの幅を調整するためのラベル。"
+    },
+    "responsiveWidthLabel": {
+        "message": "スライダー幅の自動調整:",
+        "description": "スライダー幅の自動調整を有効または無効にするためのポップアップのラベル。"
     }
 }

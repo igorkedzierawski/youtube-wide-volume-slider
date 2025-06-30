@@ -2,5 +2,13 @@
     "extensionDescription": {
         "message": "Ersetzt YouTubes Standard-Lautstärkeregler durch einen breiteren zur einfacheren Lautstärkeregelung.",
         "description": "Beschreibung der Erweiterung."
+    },
+    "sliderWidthLabel": {
+        "message": "Schieberegler-Breite:",
+        "description": "Label used in the popup to adjust the width of the slider."
+    },
+    "responsiveWidthLabel": {
+        "message": "Automatische Anpassung der Schieberegler-Breite:",
+        "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
     }
 }

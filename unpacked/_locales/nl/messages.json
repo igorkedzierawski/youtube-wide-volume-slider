@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Vervangt de standaard volume schuifregelaar van YouTube door een bredere voor eenvoudigere volumeregeling.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Breedte schuifregelaar:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Automatische aanpassing schuifregelaar breedte:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

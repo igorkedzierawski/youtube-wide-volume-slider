@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Asendab YouTube'i vaikimisi helitugevuse liuguri laiemaga, et helitugevust oleks lihtsam kontrollida.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Liuguri laius:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Liuguri laiuse automaatne kohandamine:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

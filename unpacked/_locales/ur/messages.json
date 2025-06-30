@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "یوٹیوب کے ڈیفالٹ والیوم سلائیڈر کو ایک چوڑا سلائیڈر سے تبدیل کرتا ہے تاکہ والیوم کنٹرول آسان ہو جائے۔",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "سلائیڈر کی چوڑائی:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "سلائیڈر کی چوڑائی کا خودکار ایڈجسٹمنٹ:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Jibdel l-iskala tal-volum default ta’ YouTube għal waħda usa’ biex il-kontroll tal-volum ikun aktar faċli.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Wisa’ l-iskala:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Aġġustament awtomatiku tal-wisa’ tal-iskala:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

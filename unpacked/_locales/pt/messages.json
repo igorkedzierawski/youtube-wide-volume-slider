@@ -2,5 +2,13 @@
     "extensionDescription": {
         "message": "Substitui o controle de volume padrão do YouTube por um mais largo para facilitar o ajuste de volume.",
         "description": "Descrição da extensão."
+    },
+    "sliderWidthLabel": {
+        "message": "Largura do controle deslizante:",
+        "description": "Rótulo usado no popup para ajustar a largura do controle deslizante."
+    },
+    "responsiveWidthLabel": {
+        "message": "Ajuste automático da largura do controle deslizante:",
+        "description": "Rótulo usado no popup para ativar ou desativar o ajuste automático da largura do controle deslizante."
     }
 }

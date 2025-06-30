@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Заменује подразумевани клизач јачине звука на YouTube-у ширим ради лакше контроле јачине.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Ширина клизача:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Аутоматско подешавање ширине клизача:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

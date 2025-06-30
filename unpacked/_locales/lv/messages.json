@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Aizstāj YouTube noklusējuma skaļuma slīdni ar platāku, lai atvieglotu skaļuma kontroli.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Slīdņa platums:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Automātiska slīdņa platuma pielāgošana:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

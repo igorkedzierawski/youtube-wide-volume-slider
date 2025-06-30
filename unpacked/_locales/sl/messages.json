@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Zamenja privzeti drsnik za glasnost na YouTubu z širšim za lažje upravljanje glasnosti.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Širina drsnika:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Samodejna prilagoditev širine drsnika:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

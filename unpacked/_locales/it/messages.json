@@ -2,5 +2,13 @@
     "extensionDescription": {
         "message": "Sostituisce il cursore del volume predefinito di YouTube con uno più largo per un controllo più facile.",
         "description": "Descrizione dell'estensione."
+    },
+    "sliderWidthLabel": {
+        "message": "Larghezza del cursore:",
+        "description": "Etichetta usata nel popup per regolare la larghezza del cursore."
+    },
+    "responsiveWidthLabel": {
+        "message": "Regolazione automatica della larghezza del cursore:",
+        "description": "Etichetta usata nel popup per abilitare o disabilitare la regolazione automatica della larghezza del cursore."
     }
 }
