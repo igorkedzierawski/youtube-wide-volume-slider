@@ -9,9 +9,9 @@ import {
     querySelectorLocateOnce,
 } from "./utils/query-selector-locate";
 import {
-    CreateYtLocalstorageUpdateScheduler as createYtLocalstorageUpdateScheduler,
-    readYtLocalstorage,
-} from "./yt-localstorage";
+    readVolumeSettingsFromLocalStorage,
+    YtLocalStorageUpdateScheduler,
+} from "./utils/yt-local-storage";
 import {
     AVAILABLE_SLIDER_MULTIPLES,
     YOUTUBE_DEFAULT_SLIDER_WIDTH_PX,
@@ -88,7 +88,7 @@ let currentMulIndex: number = -1;
         initialSettings.mutedIconUrl,
     );
 
-    const ytLocalstorageUpdator = createYtLocalstorageUpdateScheduler();
+    const ytLocalstorageUpdator = new YtLocalStorageUpdateScheduler();
 
     // handler function that gets called every time user interacts with the
     // slider created by this extension. with passed volume settings we update
@@ -118,7 +118,7 @@ let currentMulIndex: number = -1;
     volumeAreaParent.removeChild(volumeArea);
 
     // synchronize volume settings with youtube's localstorage (or default)
-    const initialVolumeSettings: VolumeSettings = readYtLocalstorage() || {
+    const initialVolumeSettings: VolumeSettings = readVolumeSettingsFromLocalStorage() || {
         volume: 10,
         muted: false,
     };
