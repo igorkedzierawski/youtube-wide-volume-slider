@@ -1,4 +1,4 @@
-import { VolumeSettings } from "../types";
+import { YtVolumeSettings } from "./yt-types";
 
 const YT_PLAYER_VOLUME_KEY = "yt-player-volume";
 
@@ -47,7 +47,7 @@ export class YtLocalStorageUpdateScheduler {
     }
 }
 
-export const readVolumeSettingsFromLocalStorage = (): VolumeSettings | null => {
+export const readVolumeSettingsFromLocalStorage = (): YtVolumeSettings | null => {
     try {
         const parsed = JSON.parse(localStorage[YT_PLAYER_VOLUME_KEY]);
 

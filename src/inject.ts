@@ -8,7 +8,7 @@ import {
     AVAILABLE_WIDTH_MULTIPLIERS,
     YT_DEFAULT_SLIDER_WIDTH_PX,
 } from "./common/slider-width";
-import { VolumeController, VolumeSettings, type MoviePlayer } from "./types";
+import { YtVolumeController, YtVolumeSettings, type YtMoviePlayer } from "./utils/yt-types";
 import {
     querySelectorLocateAndObserve,
     querySelectorLocateOnce,
@@ -68,7 +68,7 @@ const getInitParams = async (): Promise<InitParamsPassedEvent> => {
 
     // locate key elements within DOM
     const moviePlayerElement =
-        (await locateMoviePlayerElement()) as MoviePlayer;
+        (await locateMoviePlayerElement()) as YtMoviePlayer;
     const volumeArea = await locateVolumeArea(moviePlayerElement);
 
     const volumeAreaParent = volumeArea.parentElement;
@@ -76,7 +76,7 @@ const getInitParams = async (): Promise<InitParamsPassedEvent> => {
         throw new Error("Could not find volume area parent");
     }
 
-    const volumeController: VolumeController = moviePlayerElement;
+    const volumeController: YtVolumeController = moviePlayerElement;
 
     // create volume slider component and a hook to youtube's localstorage
     const wideVolumeSlider = createVolumeSliderComponent(
@@ -88,7 +88,7 @@ const getInitParams = async (): Promise<InitParamsPassedEvent> => {
     // handler function that gets called every time user interacts with the
     // slider created by this extension. with passed volume settings we update
     // the state of the movie player and also youtube's localstorage.
-    const volumeSettingsChangeHandler = (settings: VolumeSettings) => {
+    const volumeSettingsChangeHandler = (settings: YtVolumeSettings) => {
         if (settings.muted) volumeController.mute();
         else volumeController.unMute();
         volumeController.setVolume(settings.volume);
@@ -116,7 +116,7 @@ const getInitParams = async (): Promise<InitParamsPassedEvent> => {
     volumeAreaParent.removeChild(volumeArea);
 
     // synchronize volume settings with youtube's localstorage (or default)
-    const initialVolumeSettings: VolumeSettings =
+    const initialVolumeSettings: YtVolumeSettings =
         readVolumeSettingsFromLocalStorage() || {
             volume: 10,
             muted: false,
