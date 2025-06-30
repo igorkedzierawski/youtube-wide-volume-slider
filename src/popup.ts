@@ -7,6 +7,10 @@ import {
     WIDTH_MULTIPLIER_INDEX_KEY,
 } from "./common/extension-storage";
 import { MESSAGE_SETTINGS_UPDATED } from "./common/communication";
+import {
+    MSG_RESPONSIVE_WIDTH_LABEL,
+    MSG_SLIDER_WIDTH_LABEL,
+} from "./common/messages";
 
 interface PopupElements {
     widthMultiplier: {
@@ -36,7 +40,7 @@ const init = async (elements: PopupElements) => {
             [WIDTH_MULTIPLIER_INDEX_KEY]: widthMultiplierIndex,
             [RESPONSIVE_WIDTH_KEY]: responsiveWidth,
         };
-        
+
         browser.storage.local.set(settings);
 
         browser.tabs.query({}).then(tabs => {
@@ -49,8 +53,9 @@ const init = async (elements: PopupElements) => {
     };
 
     // width multiplier selection section
-    elements.widthMultiplier.title.innerText = "Szerokość suwaka:";
-
+    elements.widthMultiplier.title.innerText = browser.i18n.getMessage(
+        MSG_SLIDER_WIDTH_LABEL,
+    );
     elements.widthMultiplier.input.min = "0";
     elements.widthMultiplier.input.max = `${
         AVAILABLE_WIDTH_MULTIPLIERS.length - 1
@@ -68,8 +73,9 @@ const init = async (elements: PopupElements) => {
     };
 
     // responsive width selection section
-    elements.responsiveWidth.title.innerText =
-        "Automatyczne dostosowanie szerokości suwaka:";
+    elements.responsiveWidth.title.innerText = browser.i18n.getMessage(
+        MSG_RESPONSIVE_WIDTH_LABEL,
+    );
 
     elements.responsiveWidth.input.checked = responsiveWidth;
 
