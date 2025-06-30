@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Korvaa YouTuben oletusäänisäätimen leveämmällä liukusäätimellä, joka helpottaa äänenvoimakkuuden säätöä.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Liukusäätimen leveys:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Liukusäätimen leveyden automaattinen säätö:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}
