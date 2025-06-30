@@ -1,6 +1,10 @@
 import browser from "webextension-polyfill";
-import { CURRENT_MULTIPLE, Messages } from "./constants";
 import { InitialSettings } from "./types";
+import {
+    WIDTH_MULTIPLIER_INDEX_DEFAULT,
+    WIDTH_MULTIPLIER_INDEX_KEY,
+} from "./common/extension-storage";
+import { MESSAGE_SETTINGS_UPDATED } from "./common/communication";
 
 document.addEventListener("DOMContentLoaded", () => {
     const script = document.createElement("script");
@@ -8,9 +12,12 @@ document.addEventListener("DOMContentLoaded", () => {
     script.onload = async () => {
         script.remove();
         const initialMultiple = Number(
-            (await browser.storage.local.get(CURRENT_MULTIPLE))[
-                CURRENT_MULTIPLE
-            ],
+            (
+                await browser.storage.local.get({
+                    [WIDTH_MULTIPLIER_INDEX_KEY]:
+                        WIDTH_MULTIPLIER_INDEX_DEFAULT,
+                })
+            )[WIDTH_MULTIPLIER_INDEX_KEY],
         );
         const event = new CustomEvent(
             "YouTubeWideVolumeSliderInitialSettingsPassEvent",
@@ -29,10 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 browser.runtime.onMessage.addListener((message: any) => {
     console.log(message);
-    if (message && message.name == Messages.NOTIFY_CHANGE) {
+    if (message && message.name == MESSAGE_SETTINGS_UPDATED) {
         const event = new CustomEvent(
             "YouTubeWideVolumeSliderWidthMultipleChangedEvent",
-            { detail: message.value },
+            { detail: message.value[WIDTH_MULTIPLIER_INDEX_KEY] },
         );
         document.dispatchEvent(event);
     }

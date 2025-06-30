@@ -1,4 +1,8 @@
 import {
+    AVAILABLE_WIDTH_MULTIPLIERS,
+    YT_DEFAULT_SLIDER_WIDTH_PX,
+} from "./common/slider-width";
+import {
     InitialSettings,
     VolumeController,
     VolumeSettings,
@@ -12,10 +16,6 @@ import {
     readVolumeSettingsFromLocalStorage,
     YtLocalStorageUpdateScheduler,
 } from "./utils/yt-local-storage";
-import {
-    AVAILABLE_SLIDER_MULTIPLES,
-    YOUTUBE_DEFAULT_SLIDER_WIDTH_PX,
-} from "./constants";
 import { createVolumeSliderComponent } from "./volume_slider/volume-slider";
 
 // Locate movie player element within DOM
@@ -114,14 +114,18 @@ let currentMulIndex: number = -1;
     });
 
     // replace volume slider
-    volumeAreaParent.insertBefore(wideVolumeSlider.getRootElement(), volumeArea);
+    volumeAreaParent.insertBefore(
+        wideVolumeSlider.getRootElement(),
+        volumeArea,
+    );
     volumeAreaParent.removeChild(volumeArea);
 
     // synchronize volume settings with youtube's localstorage (or default)
-    const initialVolumeSettings: VolumeSettings = readVolumeSettingsFromLocalStorage() || {
-        volume: 10,
-        muted: false,
-    };
+    const initialVolumeSettings: VolumeSettings =
+        readVolumeSettingsFromLocalStorage() || {
+            volume: 10,
+            muted: false,
+        };
     wideVolumeSlider.updateSettings(initialVolumeSettings);
     volumeSettingsChangeHandler(initialVolumeSettings);
 
@@ -134,8 +138,8 @@ let currentMulIndex: number = -1;
         if (currentMulIndex === -1) {
             currentMulIndex = preffIndex;
             wideVolumeSlider.setSliderWidth(
-                AVAILABLE_SLIDER_MULTIPLES[currentMulIndex] *
-                    YOUTUBE_DEFAULT_SLIDER_WIDTH_PX,
+                AVAILABLE_WIDTH_MULTIPLIERS[currentMulIndex] *
+                    YT_DEFAULT_SLIDER_WIDTH_PX,
             );
             setTimeout(() => {
                 setWidthWithEverythingTakenCareOf(prefferedMulIndex);
@@ -148,19 +152,19 @@ let currentMulIndex: number = -1;
             .map(el => el.scrollWidth)
             .reduce((a, b) => a + b);
         const currentSliderWidth =
-            AVAILABLE_SLIDER_MULTIPLES[currentMulIndex] *
-            YOUTUBE_DEFAULT_SLIDER_WIDTH_PX;
+            AVAILABLE_WIDTH_MULTIPLIERS[currentMulIndex] *
+            YT_DEFAULT_SLIDER_WIDTH_PX;
         console.log(
             `vaParentW: ${volumeAreaParentWidth}; compCW: ${computedContentWidth}; currSliderW: ${currentSliderWidth}`,
         );
         let finalWidthIndx = prefferedMulIndex;
         do {
             console.log(
-                `testing ${finalWidthIndx}===${AVAILABLE_SLIDER_MULTIPLES[finalWidthIndx]}`,
+                `testing ${finalWidthIndx}===${AVAILABLE_WIDTH_MULTIPLIERS[finalWidthIndx]}`,
             );
             let prefferedSliderWidth =
-                AVAILABLE_SLIDER_MULTIPLES[finalWidthIndx] *
-                YOUTUBE_DEFAULT_SLIDER_WIDTH_PX;
+                AVAILABLE_WIDTH_MULTIPLIERS[finalWidthIndx] *
+                YT_DEFAULT_SLIDER_WIDTH_PX;
             let computedPrefferedContentWidth =
                 computedContentWidth -
                 currentSliderWidth +
@@ -169,23 +173,23 @@ let currentMulIndex: number = -1;
                 `prefferedSliderWidth: ${prefferedSliderWidth}; computedPrefferedContentWidth: ${computedPrefferedContentWidth}`,
             );
             if (computedPrefferedContentWidth < volumeAreaParentWidth) {
-                console.log("Path1")
+                console.log("Path1");
                 currentMulIndex = finalWidthIndx;
                 wideVolumeSlider.setSliderWidth(
-                    AVAILABLE_SLIDER_MULTIPLES[currentMulIndex] *
-                        YOUTUBE_DEFAULT_SLIDER_WIDTH_PX,
+                    AVAILABLE_WIDTH_MULTIPLIERS[currentMulIndex] *
+                        YT_DEFAULT_SLIDER_WIDTH_PX,
                 );
                 return;
             } else {
-                console.log("Path2")
+                console.log("Path2");
                 finalWidthIndx--;
             }
             if (finalWidthIndx < 0) {
-                console.log("Path3")
+                console.log("Path3");
                 currentMulIndex = finalWidthIndx;
                 wideVolumeSlider.setSliderWidth(
-                    AVAILABLE_SLIDER_MULTIPLES[finalWidthIndx] *
-                        YOUTUBE_DEFAULT_SLIDER_WIDTH_PX,
+                    AVAILABLE_WIDTH_MULTIPLIERS[finalWidthIndx] *
+                        YT_DEFAULT_SLIDER_WIDTH_PX,
                 );
                 return;
             }

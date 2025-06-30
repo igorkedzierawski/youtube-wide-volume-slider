@@ -1,45 +1,96 @@
 import browser from "webextension-polyfill";
-
+import { AVAILABLE_WIDTH_MULTIPLIERS } from "../common/slider-width";
 import {
-    AVAILABLE_SLIDER_MULTIPLES,
-    CURRENT_MULTIPLE,
-    Messages,
-    YOUTUBE_DEFAULT_SLIDER_WIDTH_PX,
-} from "../constants";
+    RESPONSIVE_WIDTH_DEFAULT,
+    RESPONSIVE_WIDTH_KEY,
+    WIDTH_MULTIPLIER_INDEX_DEFAULT,
+    WIDTH_MULTIPLIER_INDEX_KEY,
+} from "../common/extension-storage";
+import { MESSAGE_SETTINGS_UPDATED } from "../common/communication";
 
-interface PopupInitElems {
-    WIDTH_SELECTOR: HTMLInputElement;
-    WIDTH_TITLE: HTMLSpanElement;
-    WIDTH_DISPLAY: HTMLSpanElement;
+interface PopupElements {
+    widthMultiplier: {
+        title: HTMLSpanElement;
+        display: HTMLSpanElement;
+        input: HTMLInputElement;
+    };
+    responsiveWidth: {
+        title: HTMLSpanElement;
+        input: HTMLInputElement;
+    };
 }
 
-const init = (elems: PopupInitElems) => {
-    elems.WIDTH_TITLE.innerText = "Szerokość suwaka:";
+const init = async (elements: PopupElements) => {
+    const initialSettings = await browser.storage.local.get({
+        [WIDTH_MULTIPLIER_INDEX_KEY]: WIDTH_MULTIPLIER_INDEX_DEFAULT,
+        [RESPONSIVE_WIDTH_KEY]: RESPONSIVE_WIDTH_DEFAULT,
+    });
 
-    elems.WIDTH_SELECTOR.min = "0";
-    elems.WIDTH_SELECTOR.max = "" + (AVAILABLE_SLIDER_MULTIPLES.length - 1);
+    let widthMultiplierIndex = initialSettings[
+        WIDTH_MULTIPLIER_INDEX_KEY
+    ] as number;
+    let responsiveWidth = initialSettings[RESPONSIVE_WIDTH_KEY] as boolean;
 
-    elems.WIDTH_SELECTOR.oninput = async () => {
-        const selectedMultipleIndex = Number(elems.WIDTH_SELECTOR.value);
-        const selectedMultiple =
-            AVAILABLE_SLIDER_MULTIPLES[selectedMultipleIndex];
-        elems.WIDTH_DISPLAY.innerText = "x" + selectedMultiple;
-        await browser.storage.local.set({
-            [CURRENT_MULTIPLE]: selectedMultipleIndex,
+    const persistAndBroadcastSettings = () => {
+        const settings = {
+            [WIDTH_MULTIPLIER_INDEX_KEY]: widthMultiplierIndex,
+            [RESPONSIVE_WIDTH_KEY]: responsiveWidth,
+        };
+        
+        browser.storage.local.set(settings);
+
+        browser.tabs.query({}).then(tabs => {
+            const message = {
+                name: MESSAGE_SETTINGS_UPDATED,
+                value: settings,
+            };
+            tabs.forEach(tab => browser.tabs.sendMessage(tab.id!, message));
         });
-        (await browser.tabs.query({})).forEach(async tab => {
-            await browser.tabs.sendMessage(tab.id!, {
-                name: Messages.NOTIFY_CHANGE,
-                value: selectedMultipleIndex
-            });
-        })
+    };
+
+    // width multiplier selection section
+    elements.widthMultiplier.title.innerText = "Szerokość suwaka:";
+
+    elements.widthMultiplier.input.min = "0";
+    elements.widthMultiplier.input.max = `${
+        AVAILABLE_WIDTH_MULTIPLIERS.length - 1
+    }`;
+    elements.widthMultiplier.input.value = `${responsiveWidth}`;
+
+    elements.widthMultiplier.display.innerText =
+        "x" + AVAILABLE_WIDTH_MULTIPLIERS[widthMultiplierIndex];
+
+    elements.widthMultiplier.input.oninput = async () => {
+        widthMultiplierIndex = Number(elements.widthMultiplier.input.value);
+        elements.widthMultiplier.display.innerText =
+            "x" + AVAILABLE_WIDTH_MULTIPLIERS[widthMultiplierIndex];
+        persistAndBroadcastSettings();
+    };
+
+    // responsive width selection section
+    elements.responsiveWidth.title.innerText =
+        "Automatyczne dostosowanie szerokości suwaka:";
+
+    elements.responsiveWidth.input.checked = responsiveWidth;
+
+    elements.responsiveWidth.input.oninput = () => {
+        responsiveWidth = elements.responsiveWidth.input.checked;
+        persistAndBroadcastSettings();
     };
 };
 
 init({
-    WIDTH_SELECTOR: document.getElementById(
-        "width_selector",
-    )! as HTMLInputElement,
-    WIDTH_TITLE: document.getElementById("width_title")!,
-    WIDTH_DISPLAY: document.getElementById("width_display")!,
+    widthMultiplier: {
+        title: document.getElementById("width_multiplier_title")!,
+        display: document.getElementById("width_multiplier_display")!,
+        input: document.getElementById(
+            "width_multiplier_input",
+        )! as HTMLInputElement,
+    },
+    responsiveWidth: {
+        title: document.getElementById("responsive_width_title")!,
+        input: document.getElementById(
+            "responsive_width_input",
+        )! as HTMLInputElement,
+    },
 });
