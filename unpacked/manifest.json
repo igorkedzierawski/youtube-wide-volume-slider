@@ -29,7 +29,7 @@
         "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self'; img-src 'self'"
     },
     "action": {
-        "default_popup": "dist/popup/popup.html",
+        "default_popup": "dist/popup.html",
         "default_icon": {
             "256": "images/icon_256px.png"
         }
