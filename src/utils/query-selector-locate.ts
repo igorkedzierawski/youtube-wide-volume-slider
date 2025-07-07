@@ -3,15 +3,16 @@ const querySelectorLocate = (
     selectors: string,
     locateOnce: boolean,
     callback: (elem: Element) => void,
-): void => {
+): MutationObserver | null => {
     const element = parent.querySelector(selectors);
     if (element) {
         callback(element);
         if (locateOnce) {
-            return;
+            return null;
         }
     }
-    new MutationObserver((mutations, observer) => {
+
+    const observer = new MutationObserver((mutations, observer) => {
         for (const mutation of mutations) {
             const nodes = mutation.addedNodes;
             for (let i = 0; i < nodes.length; i++) {
@@ -29,7 +30,11 @@ const querySelectorLocate = (
                 }
             }
         }
-    }).observe(parent, { subtree: true, childList: true });
+    });
+
+    observer.observe(parent, { subtree: true, childList: true });
+
+    return observer;
 };
 
 export const querySelectorLocateOnce = (
@@ -45,6 +50,6 @@ export const querySelectorLocateAndObserve = (
     parent: Element,
     selectors: string,
     callback: (elem: Element) => void,
-): void => {
-    querySelectorLocate(parent, selectors, false, callback);
+): MutationObserver | null => {
+    return querySelectorLocate(parent, selectors, false, callback);
 };

@@ -2,5 +2,13 @@
     "extensionDescription": {
         "message": "Zastępuje domyślny suwak głośności YouTube'a szerszym, ułatwiającym kontrolowanie głośności.",
         "description": "Opis rozszerzenia."
+    },
+    "sliderWidthLabel": {
+        "message": "Szerokość suwaka:",
+        "description": "Etykieta używana w popupie do regulacji szerokości suwaka."
+    },
+    "responsiveWidthLabel": {
+        "message": "Automatyczne dostosowanie szerokości suwaka:",
+        "description": "Etykieta używana w popupie do włączania lub wyłączania automatycznego dostosowania szerokości suwaka."
     }
 }

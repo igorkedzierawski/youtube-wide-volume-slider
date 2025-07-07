@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Pakeičia YouTube numatytą garsumo slankiklį į platesnį, kad būtų lengviau valdyti garsumą.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Slankiklio plotis:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Automatinis slankiklio pločio reguliavimas:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

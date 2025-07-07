@@ -2,5 +2,13 @@
     "extensionDescription": {
         "message": "Reemplaza el control de volumen predeterminado de YouTube con uno más ancho para facilitar el ajuste de volumen.",
         "description": "Descripción de la extensión."
+    },
+    "sliderWidthLabel": {
+        "message": "Ancho del control deslizante:",
+        "description": "Etiqueta usada en el popup para ajustar el ancho del control deslizante."
+    },
+    "responsiveWidthLabel": {
+        "message": "Ajuste automático del ancho del control deslizante:",
+        "description": "Etiqueta usada en el popup para activar o desactivar el ajuste automático del ancho del control deslizante."
     }
 }

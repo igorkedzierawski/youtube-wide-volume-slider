@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Mengganti penggeser volume default YouTube dengan yang lebih lebar untuk kontrol volume yang lebih mudah.",
+    "description": "Deskripsi ekstensi."
+  },
+  "sliderWidthLabel": {
+    "message": "Lebar penggeser:",
+    "description": "Label yang digunakan di popup untuk mengatur lebar penggeser."
+  },
+  "responsiveWidthLabel": {
+    "message": "Penyesuaian lebar penggeser otomatis:",
+    "description": "Label yang digunakan di popup untuk mengaktifkan atau menonaktifkan penyesuaian lebar penggeser otomatis."
+  }
+}
