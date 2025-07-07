@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Nahrádza predvolený posúvač hlasitosti YouTube širším pre jednoduchšie ovládanie hlasitosti.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Šírka posúvača:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Automatické nastavenie šírky posúvača:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

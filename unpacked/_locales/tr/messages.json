@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "YouTube'un varsayılan ses kaydırıcısını, sesi daha kolay kontrol etmek için daha geniş bir kaydırıcıyla değiştirir.",
+    "description": "Eklenti açıklaması."
+  },
+  "sliderWidthLabel": {
+    "message": "Kaydırıcı genişliği:",
+    "description": "Kaydırıcının genişliğini ayarlamak için açılır pencerede kullanılan etiket."
+  },
+  "responsiveWidthLabel": {
+    "message": "Otomatik kaydırıcı genişliği ayarı:",
+    "description": "Kaydırıcı genişliğinin otomatik ayarını etkinleştirmek veya devre dışı bırakmak için açılır pencerede kullanılan etiket."
+  }
+}

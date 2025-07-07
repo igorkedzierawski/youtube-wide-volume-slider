@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Го заменува стандардниот лизгач за јачина на звук на YouTube со поширок за полесна контрола на јачината.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Ширина на лизгачот:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Автоматска прилагодување на ширината на лизгачот:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

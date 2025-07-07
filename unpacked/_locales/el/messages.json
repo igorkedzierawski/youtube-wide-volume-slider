@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Αντικαθιστά τη προεπιλεγμένη μπάρα έντασης ήχου του YouTube με μια πιο φαρδιά για ευκολότερο έλεγχο της έντασης.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Πλάτος ρυθμιστικού:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Αυτόματη ρύθμιση πλάτους ρυθμιστικού:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

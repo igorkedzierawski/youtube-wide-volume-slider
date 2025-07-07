@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Kicseréli a YouTube alapértelmezett hangerőcsúszkáját egy szélesebbre, a könnyebb hangerőszabályozás érdekében.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Csúszka szélessége:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Automatikus csúszka szélesség állítás:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

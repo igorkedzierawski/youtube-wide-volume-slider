@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Erstatter YouTubes standard volumenskyve med en bredere for enklere volumkontroll.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Skyvebredde:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Automatisk justering av skyvebredde:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

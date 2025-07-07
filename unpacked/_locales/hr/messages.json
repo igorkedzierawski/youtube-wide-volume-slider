@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Zamjenjuje zadani YouTube klizač glasnoće širim radi lakše kontrole glasnoće.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Širina klizača:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Automatsko prilagođavanje širine klizača:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

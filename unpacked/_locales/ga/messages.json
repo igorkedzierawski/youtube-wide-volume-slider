@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Athraíonn sé sleamhnán toirt réamhshocraithe YouTube le ceann níos leithne chun rialú toirt níos éasca a dhéanamh.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Leithead an sleamhnáin:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Uirlis uathoibríoch le haghaidh leithead sleamhnáin:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}
