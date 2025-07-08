@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            http-equiv="Content-Security-Policy"
+            content="object-src 'self';"
+        />
+        <style>
+            #popup_box {
+                width: 256px;
+                padding: 6px;
+                font-family: system-ui, sans-serif;
+                font-size: 16px;
+            }
+
+            #width_multiplier {
+                margin-bottom: 8px;
+            }
+
+            #width_multiplier_title {
+                margin-bottom: 4px;
+            }
+
+            #width_multiplier_input {
+                width: 100%;
+                display: block;
+            }
+
+            #responsive_width_input {
+                width: 16px;
+                height: 16px;
+                margin-left: 6px;
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="popup_box">
+            <div id="width_multiplier">
+                <span id="width_multiplier_title"></span>
+                <span id="width_multiplier_display"></span>
+                <input id="width_multiplier_input" type="range" />
+            </div>
+            <div id="responsive_width">
+                <span id="responsive_width_title"></span>
+                <input id="responsive_width_input" type="checkbox" />
+            </div>
+        </div>
+    </body>
+    <script type="module" src="./popup.js"></script>
+</html>
