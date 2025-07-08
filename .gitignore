@@ -1,2 +1,4 @@
-node_modules/**
-unpacked/dist/**
+node_modules/
+unpacked/dist/**/*.js
+!unpacked/dist/
+!unpacked/dist/**/
