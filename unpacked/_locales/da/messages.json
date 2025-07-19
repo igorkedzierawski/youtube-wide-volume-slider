@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Erstatter YouTubes standard lydstyrkebjælke med en bredere for lettere lydstyrkekontrol.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Skyderbredde:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Automatisk justering af skyderbredde:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

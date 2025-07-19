@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Ersätter YouTubes standard volymreglage med en bredare för enklare volymkontroll.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Reglagets bredd:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Automatisk justering av reglagets bredd:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Menggantikan slider volum lalai YouTube dengan yang lebih lebar untuk kawalan volum yang lebih mudah.",
+    "description": "Deskripsi sambungan."
+  },
+  "sliderWidthLabel": {
+    "message": "Lebar slider:",
+    "description": "Label yang digunakan dalam popup untuk melaraskan lebar slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Pelarasan lebar slider automatik:",
+    "description": "Label yang digunakan dalam popup untuk menghidupkan atau mematikan pelarasan lebar slider automatik."
+  }
+}

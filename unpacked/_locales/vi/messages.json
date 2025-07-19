@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Thay thế thanh âm lượng mặc định của YouTube bằng thanh rộng hơn để dễ dàng điều chỉnh âm lượng hơn.",
+    "description": "Mô tả tiện ích mở rộng."
+  },
+  "sliderWidthLabel": {
+    "message": "Chiều rộng thanh trượt:",
+    "description": "Nhãn được sử dụng trong popup để điều chỉnh chiều rộng của thanh trượt."
+  },
+  "responsiveWidthLabel": {
+    "message": "Tự động điều chỉnh chiều rộng thanh trượt:",
+    "description": "Nhãn được sử dụng trong popup để bật hoặc tắt điều chỉnh chiều rộng thanh trượt tự động."
+  }
+}

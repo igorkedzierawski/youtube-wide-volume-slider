@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "Заменя стандартния плъзгач за сила на звука в YouTube с по-широк за по-лесно управление на звука.",
+    "description": "Extension's description."
+  },
+  "sliderWidthLabel": {
+    "message": "Ширина на плъзгача:",
+    "description": "Label used in the popup to adjust the width of the slider."
+  },
+  "responsiveWidthLabel": {
+    "message": "Автоматично регулиране на ширината на плъзгача:",
+    "description": "Label used in the popup to enable or disable automatic adjustment of the slider width."
+  }
+}

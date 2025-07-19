@@ -1,4 +1,5 @@
 [
     "content.ts",
-    "inject.ts"
+    "inject.ts",
+    "popup.ts"
 ]

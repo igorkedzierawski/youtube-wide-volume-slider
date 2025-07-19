@@ -1,0 +1,14 @@
+{
+  "extensionDescription": {
+    "message": "YouTube의 기본 볼륨 슬라이더를 더 넓은 것으로 교체하여 볼륨 조절을 쉽게 합니다.",
+    "description": "확장 프로그램 설명."
+  },
+  "sliderWidthLabel": {
+    "message": "슬라이더 너비:",
+    "description": "팝업에서 슬라이더 너비를 조정하는 데 사용되는 레이블."
+  },
+  "responsiveWidthLabel": {
+    "message": "자동 슬라이더 너비 조절:",
+    "description": "팝업에서 슬라이더 너비 자동 조절을 활성화 또는 비활성화하는 데 사용되는 레이블."
+  }
+}
