@@ -8,7 +8,11 @@ import {
     AVAILABLE_WIDTH_MULTIPLIERS,
     YT_DEFAULT_SLIDER_WIDTH_PX,
 } from "./common/slider-width";
-import { YtVolumeController, YtVolumeSettings, type YtMoviePlayer } from "./utils/yt-types";
+import {
+    YtVolumeController,
+    YtVolumeSettings,
+    type YtMoviePlayer,
+} from "./utils/yt-types";
 import {
     querySelectorLocateAndObserve,
     querySelectorLocateOnce,
@@ -137,6 +141,17 @@ const getInitParams = async (): Promise<InitParamsPassedEvent> => {
         );
     };
 
+    // ahh, who doesnt love layout calculations?
+    // anyway, this thing is detecting whether some other element, that
+    // is inside the `VolumeAreaParentElement`, is resizing together with it
+    // (i.e. is filling the remaining space inside `VolumeAreaParentElement`)
+    // when we detect that this is happening, we hint our layout calculations
+    // that there actually is some extra space that we can use, so our
+    // `VolumeSliderComponent` so it can grow when the player grows
+    let volumeAreaParentWidthAtLastResize: number | undefined = undefined;
+    let remainingForSliderWidthAtLastRecalc: number | undefined = undefined;
+    const epsilon = 1e-1;
+
     const recalculateSliderWidth = () => {
         if (currentMultiplier === -1) {
             setCurrentMultiplier(prefferedMultiplier);
@@ -151,6 +166,9 @@ const getInitParams = async (): Promise<InitParamsPassedEvent> => {
 
         const volumeAreaParentWidth =
             volumeAreaParent.getBoundingClientRect().width;
+        if (volumeAreaParentWidthAtLastResize === undefined) {
+            volumeAreaParentWidthAtLastResize = volumeAreaParentWidth;
+        }
         const computedContentWidth = [...volumeAreaParent.children]
             .map(el => el.scrollWidth)
             .reduce((a, b) => a + b);
@@ -158,8 +176,18 @@ const getInitParams = async (): Promise<InitParamsPassedEvent> => {
             currentMultiplier * YT_DEFAULT_SLIDER_WIDTH_PX;
         const nonSliderOccupiedWidth =
             computedContentWidth - currentSliderWidth;
-        const remainingForSliderWidth =
+        let remainingForSliderWidth =
             volumeAreaParentWidth - nonSliderOccupiedWidth;
+        remainingForSliderWidthAtLastRecalc = remainingForSliderWidth;
+        if (
+            volumeAreaParentWidthAtLastResize < volumeAreaParentWidth &&
+            Math.abs(
+                remainingForSliderWidth - remainingForSliderWidthAtLastRecalc,
+            ) < epsilon
+        ) {
+            remainingForSliderWidth +=
+                volumeAreaParentWidth - volumeAreaParentWidthAtLastResize;
+        }
         const maximumAllowedMultiplier =
             remainingForSliderWidth / YT_DEFAULT_SLIDER_WIDTH_PX;
         const maximumAllowedOrPrefferedMultiplier = Math.min(
@@ -175,7 +203,12 @@ const getInitParams = async (): Promise<InitParamsPassedEvent> => {
             AVAILABLE_WIDTH_MULTIPLIERS[0],
         );
 
+        const multiplerBeforeChange = currentMultiplier;
         setCurrentMultiplier(bestAvailableMultiplier);
+        if (multiplerBeforeChange !== currentMultiplier) {
+            volumeAreaParentWidthAtLastResize = volumeAreaParentWidth;
+        }
+        remainingForSliderWidthAtLastRecalc = remainingForSliderWidth;
     };
 
     recalculateSliderWidth();
@@ -189,7 +222,7 @@ const getInitParams = async (): Promise<InitParamsPassedEvent> => {
     });
 
     new ResizeObserver(_ => {
-        if(responsiveWidth) {
+        if (responsiveWidth) {
             recalculateSliderWidth();
         }
     }).observe(volumeAreaParent);
