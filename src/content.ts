@@ -1,8 +1,7 @@
 import browser from "webextension-polyfill";
 import {
-    RESPONSIVE_WIDTH_DEFAULT,
+    getSettingsOrDefault,
     RESPONSIVE_WIDTH_KEY,
-    WIDTH_MULTIPLIER_INDEX_DEFAULT,
     WIDTH_MULTIPLIER_INDEX_KEY,
 } from "./common/extension-storage";
 import {
@@ -17,11 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
     script.onload = async () => {
         script.remove();
 
-        const initialSettings = await browser.storage.local.get({
-            [WIDTH_MULTIPLIER_INDEX_KEY]: WIDTH_MULTIPLIER_INDEX_DEFAULT,
-            [RESPONSIVE_WIDTH_KEY]: RESPONSIVE_WIDTH_DEFAULT,
-        });
-        
+        const initialSettings = await getSettingsOrDefault();
+
         document.dispatchEvent(
             createInitParamsPassedEvent({
                 widthMultipleIndex: initialSettings[

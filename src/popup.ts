@@ -1,9 +1,8 @@
 import browser from "webextension-polyfill";
 import { AVAILABLE_WIDTH_MULTIPLIERS } from "./common/slider-width";
 import {
-    RESPONSIVE_WIDTH_DEFAULT,
+    getSettingsOrDefault,
     RESPONSIVE_WIDTH_KEY,
-    WIDTH_MULTIPLIER_INDEX_DEFAULT,
     WIDTH_MULTIPLIER_INDEX_KEY,
 } from "./common/extension-storage";
 import { MESSAGE_SETTINGS_UPDATED } from "./common/communication";
@@ -25,10 +24,7 @@ interface PopupElements {
 }
 
 const init = async (elements: PopupElements) => {
-    const initialSettings = await browser.storage.local.get({
-        [WIDTH_MULTIPLIER_INDEX_KEY]: WIDTH_MULTIPLIER_INDEX_DEFAULT,
-        [RESPONSIVE_WIDTH_KEY]: RESPONSIVE_WIDTH_DEFAULT,
-    });
+    const initialSettings = await getSettingsOrDefault();
 
     let widthMultiplierIndex = initialSettings[
         WIDTH_MULTIPLIER_INDEX_KEY
