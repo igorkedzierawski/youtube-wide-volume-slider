@@ -11,6 +11,7 @@ export interface VolumeSliderElements {
 
 export const createVolumeSliderElements = (): VolumeSliderElements => {
     const container = document.createElement("youtube-wide-volume-slider");
+    container.classList.add("ytp-volume-area");
 
     const slider = document.createElement("input");
     slider.type = "range";
@@ -32,7 +33,7 @@ export const createVolumeSliderElements = (): VolumeSliderElements => {
             align-items: center;
             justify-content: center;
             margin: 8px 0 8px 0;
-            padding: 0 6px 0 6px;
+            padding: 0 16px !important;
             --ywvs-track-width: 180px;
             --ywvs-thumb-size: 16px;
             --ywvs-track-thickness: 5px;
