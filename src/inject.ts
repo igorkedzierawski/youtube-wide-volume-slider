@@ -221,6 +221,13 @@ const getInitParams = async (): Promise<InitParamsPassedEvent> => {
         recalculateSliderWidth();
     });
 
+    //TODO: wymyślić lepszy sposób na nasłuchiwanie zmian elementów w ytp-left-controls
+    setInterval(() => {
+        if (responsiveWidth) {
+            recalculateSliderWidth();
+        }
+    }, 1333);
+
     new ResizeObserver(_ => {
         if (responsiveWidth) {
             recalculateSliderWidth();
